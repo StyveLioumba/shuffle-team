@@ -1,0 +1,21 @@
+<p-toast/>
+<h2 class="font-bold text-2xl uppercase my-2">Joueurs présents</h2>
+<app-player-form/>
+
+@if (players$ | async; as players){
+
+  <div class="my-2 ">
+    <p class="text-sm font-bold">Nombre de joueurs : <span class="font-bold text-sm">{{players.length}}</span></p>
+    @if (players.length > 0){
+      <button type="button" class="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600 focus:outline-none" (click)="playerService.deleteAllPlayers()">Vider la liste</button>
+    }
+   </div>
+
+  <div class="overflow-hidden rounded-lg py-2 flex flex-wrap space-x-1 space-y-1">
+    @for (playerItem of players.reverse(); track playerItem.name){
+      <app-player-item [player]="playerItem"/>
+    }
+  </div>
+
+}
+

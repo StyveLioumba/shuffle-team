@@ -1,0 +1,28 @@
+@if (team.players; as players) {
+
+  <div class="font-normal text-md text-gray-700 my-2">{{ team.name.toUpperCase() }}</div>
+
+
+  <section class="min-w-[280px] grid grid-cols-3 gap-4 sm:flex ">
+    @for (playerItem of players; track playerItem.name) {
+
+        <div class="w-min flex flex-col border border-b shadow-sm rounded-md items-center px-6 py-4 font-normal text-gray-900">
+          <div class="relative h-10 w-10">
+            <img class="h-full w-full rounded-full object-cover object-center" src="{{playerItem.picture}}"
+                 alt="{{playerItem.name}}"/>
+          </div>
+          <div class="text-sm">
+            <div class="font-normal text-sm text-gray-700">{{ playerItem.name.toUpperCase() }}</div>
+          </div>
+        </div>
+
+    } @empty {
+      <div class="w-min flex flex-col gap-3 border border-b shadow-sm rounded-md items-center px-6 py-4 font-normal text-gray-900">
+        <div class="text-sm">
+          <div class="font-normal text-sm text-gray-700">Pas de remplacant</div>
+        </div>
+      </div>
+    }
+  </section>
+
+}

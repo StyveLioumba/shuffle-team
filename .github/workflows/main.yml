@@ -22,7 +22,7 @@ jobs:
 
       - name: Deploy to gh pages
         run: |
-            npx angular-cli-ghpages --dir=dist/browser
+            npx angular-cli-ghpages --dir=shuffle-team/dist/browser
         env:
           CI: true
           GH_TOKEN: ${{ secrets.shuffle_team_token }}

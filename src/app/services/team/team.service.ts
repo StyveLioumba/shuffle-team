@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Player} from "@app/models/player/player";
 import {BehaviorSubject} from "rxjs";
 
@@ -9,11 +9,11 @@ export class TeamService {
 
   private teams = new BehaviorSubject<{ [key: string]: Player[] }>({});
 
-  get teamsData(){
+  get teamsData() {
     return this.teams.value;
   }
 
-  set teamsData(teams: { [key: string]: Player[] }){
+  set teamsData(teams: { [key: string]: Player[] }) {
     this.teams.next(teams);
   }
 
@@ -28,14 +28,14 @@ export class TeamService {
   shuffleTeam(players: Player[], minEquipe: number = 5) {
     // Vérifier si le tableau est supérieur ou égal à minEquipe
     if (players.length < minEquipe) {
-      throw new Error(`Le tableau doit contenir au moins ${minEquipe} éléments`);
+      return {};
     }
 
     const lengthOfPlayers: number = players.length;
-    const restOfPlayers : number = lengthOfPlayers % minEquipe;
-    const nbTeams : number = lengthOfPlayers % minEquipe !== 0 ? Math.floor(lengthOfPlayers / minEquipe) : lengthOfPlayers / minEquipe;
+    let restOfPlayers: number = lengthOfPlayers % minEquipe;
+    const nbTeams: number = lengthOfPlayers % minEquipe !== 0 ? Math.floor(lengthOfPlayers / minEquipe) : lengthOfPlayers / minEquipe;
     const avgTeams: number = Math.floor(lengthOfPlayers / nbTeams);
-    let substitutePlayer : Player[] = [];
+    let substitutePlayer: Player[] = [];
 
 
     // Mélanger le tableau des noms
@@ -49,14 +49,15 @@ export class TeamService {
       }
 
       if (restOfPlayers !== nbTeams) {
-        minEquipe = Math.floor(lengthOfPlayers / nbTeams)
+        minEquipe = Math.floor(lengthOfPlayers / nbTeams);
+        restOfPlayers = lengthOfPlayers % minEquipe;
         substitutePlayer = shuffledPlayers.splice(0, restOfPlayers);
       }
     }
 
     // Créer des équipes en fonction de minEquipe
     const teamsObject: { [key: string]: Player[] } = {};
-    let teamArray:Player[] = [];
+    let teamArray: Player[] = [];
 
 
     shuffledPlayers.map((value, index) => {

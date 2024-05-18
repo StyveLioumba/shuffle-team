@@ -7,11 +7,11 @@
 
 @if (teamService.teamsData; as teams) {
 
-  @if (Object.keys(teams).length>0){
+  @if (Object.keys(teams).length > 0) {
     <h2 class="font-bold text-2xl uppercase my-2">Les équipes formées </h2>
   }
 
-  <div class="flex flex-wrap space-x-2 ">
+  <div class="flex flex-wrap space-x-2 pb-9 ">
 
     @if (Object.keys(teams); as keys) {
 

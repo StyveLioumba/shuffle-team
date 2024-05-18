@@ -4,6 +4,7 @@ import {TeamFormComponent} from "@app/shared/components/team-form/team-form.comp
 import {TabMenuModule} from "primeng/tabmenu";
 import {MenuItem} from "primeng/api";
 import {NavbarsComponent} from "@app/shared/components/navbars/navbars.component";
+import {FooterComponent} from "@app/shared/components/footer/footer.component";
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,8 @@ import {NavbarsComponent} from "@app/shared/components/navbars/navbars.component
     PlayerFormComponent,
     TeamFormComponent,
     TabMenuModule,
-    NavbarsComponent
+    NavbarsComponent,
+    FooterComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -26,7 +28,7 @@ export class HomeComponent implements OnInit{
     this.items = [
       { label: 'Joueurs', icon: 'pi pi-fw pi-user', routerLink: ['players'] },
       { label: 'Equipes', icon: 'pi pi-fw pi-users', routerLink: ['teams'] },
-      { label: 'Tournoi', icon: 'pi pi-fw pi-users', routerLink: ['chart'] },
+      { label: 'Tournoi', icon: 'pi pi-fw pi-sitemap', routerLink: ['chart'] },
     ];
 
     this.activeItem = this.items[0];

@@ -1,6 +1,5 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {PlayerService} from "@app/services/player/player.service";
-import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
 import {ToolbarModule} from "primeng/toolbar";
 import {FileUploadModule} from "primeng/fileupload";
@@ -33,14 +32,11 @@ import {PlayerItemComponent} from "@app/shared/components/player-item/player-ite
     AsyncPipe,
     PlayerItemComponent
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './list-player.component.html',
   styleUrl: './list-player.component.scss'
 })
 export class ListPlayerComponent {
   protected readonly playerService = inject(PlayerService)
-  protected readonly messageService = inject(MessageService)
-
   players$ = this.playerService.getPlayersData();
 
 }

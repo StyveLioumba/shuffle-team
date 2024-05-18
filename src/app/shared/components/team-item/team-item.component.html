@@ -1,7 +1,6 @@
 @if (team.players; as players) {
 
-  <div class="font-normal text-md text-gray-700 my-2">{{ team.name.toUpperCase() }}</div>
-
+  <div class="font-normal text-md text-gray-700 my-2">{{ team.name.toUpperCase() }} <small>({{players.length}})</small></div>
 
   <section class="min-w-[280px] grid grid-cols-3 gap-4 sm:flex ">
     @for (playerItem of players; track playerItem.name) {

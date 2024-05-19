@@ -8,7 +8,7 @@
 
         @for (playerItem of availablePlayers(); track playerItem.name) {
 
-          <div pDraggable (onDragStart)="dragStart(playerItem)" (onDragEnd)="dragEnd()"
+          <div (click)="onSelect(playerItem)" pDraggable (onDragStart)="dragStart(playerItem)" (onDragEnd)="dragEnd()"
                class="w-min h-min cursor-pointer flex flex-col border border-b shadow-sm rounded-md items-center px-6 py-4 font-normal text-gray-900">
             <div class="relative h-10 w-10">
               <img class="h-full w-full rounded-full object-cover object-center" src="{{playerItem.picture}}"
@@ -17,6 +17,7 @@
             <div class="text-sm">
               <div class="font-normal text-sm text-gray-700">{{ playerItem.name.toUpperCase() }}</div>
             </div>
+            <i class="pi pi-fw pi-plus-circle text-green-500 font-bold cursor-pointer"></i>
           </div>
 
         } @empty {
@@ -34,7 +35,7 @@
 
           @for (playerItem of selectedPlayers; track playerItem) {
 
-            <div pDraggable (onDragStart)="dragStart(playerItem)" (onDragEnd)="dragEnd()"
+            <div  (click)="onSelect(playerItem)" pDraggable (onDragStart)="dragStart(playerItem)" (onDragEnd)="dragEnd()"
                  class="w-min cursor-pointer flex flex-col border border-b shadow-sm rounded-md items-center px-6 py-4 font-normal text-gray-900">
               <div class="relative h-10 w-10">
                 <img class="h-full w-full rounded-full object-cover object-center" src="{{playerItem.picture}}"
@@ -43,6 +44,8 @@
               <div class="text-sm">
                 <div class="font-normal text-sm text-gray-700">{{ playerItem.name.toUpperCase() }}</div>
               </div>
+
+              <i class="pi pi-fw pi-minus-circle text-red-500 font-bold cursor-pointer"></i>
             </div>
           } @empty {
             <div class="text-center text-gray-500">No players selected</div>

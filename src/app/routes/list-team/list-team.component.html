@@ -1,13 +1,21 @@
 @if (players$| async; as players) {
-  <button type="button" (click)="onGenerateTeam(players)"
-          class="bg-indigo-500 text-white px-2 py-1 mb-4 rounded-lg hover:bg-indigo-600 focus:outline-none">Reconstituer les
-    équipes automatiquement
-  </button>
+  <div class="flex flex-wrap space-x-2 justify-items-center ">
+
+    <button type="button" (click)="onGenerateTeam(players)"
+            class="bg-blue-500 text-white px-2 py-1 mb-4 rounded-lg hover:bg-blue-600 focus:outline-none">Reconstituer les
+      équipes automatiquement
+    </button>
+
+    <button type="button" (click)="onGenerateTeamManually=true"
+            class="bg-blue-500 text-white px-2 py-1 mb-4 rounded-lg hover:bg-blue-600 focus:outline-none">Reconstituer les
+      équipes manuellement
+    </button>
+  </div>
 }
 
-<div class="flex-wrap flex w-full">
+<div class="flex-wrap flex w-full mb-6">
   <app-auto-team/>
-  <app-man-team/>
+  <app-man-team [reset]="onGenerateTeamManually"/>
 </div>
 
 

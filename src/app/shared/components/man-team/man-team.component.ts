@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, inject, Input, OnChanges, OnDestroy, signal, SimpleChanges} from '@angular/core';
 import {PlayerService} from "@app/services/player/player.service";
 import {TeamService} from "@app/services/team/team.service";
 import {AsyncPipe, DatePipe} from "@angular/common";
@@ -20,7 +20,9 @@ import {Team} from "@app/models/team/team";
   templateUrl: './man-team.component.html',
   styleUrl: './man-team.component.scss'
 })
-export class ManTeamComponent {
+export class ManTeamComponent implements OnChanges, OnDestroy{
+
+  @Input({required: true}) reset: boolean = false;
 
   protected readonly fb = inject(FormBuilder);
   protected readonly playerService = inject(PlayerService);
@@ -50,8 +52,9 @@ export class ManTeamComponent {
 
     const team:Team = this.manTeamForm.getRawValue() as Team;
     team.players = this.selectedPlayers;
-
-    console.log(this.teams[team.name])
+    team.name = team.name.toLowerCase().trim()
+      .replace(/\s/g, '_')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
     if (!this.teams[team.name]) {
       this.teams[team.name] = team.players;
@@ -63,6 +66,16 @@ export class ManTeamComponent {
 
   }
 
+  onSelect(player:Player){
+    const existingPlayer = this.selectedPlayers.find(p => p.name === player.name);
+    if (!existingPlayer) {
+      this.selectedPlayers = [...this.selectedPlayers, player];
+      this.availablePlayers.set(this.availablePlayers().filter(p => p !== player));
+      return;
+    }
+    this.availablePlayers.set([...this.availablePlayers(), existingPlayer]);
+    this.selectedPlayers = this.selectedPlayers.filter(p => p !== existingPlayer);
+  }
 
 
   dragStart(player: Player) {
@@ -102,5 +115,17 @@ export class ManTeamComponent {
     }
     return index;
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['reset'].currentValue) {
+      this.availablePlayers.set(this.players$.value);
+      this.teamService.teamsData = {};
+    }
+  }
+
+  ngOnDestroy(): void {
+
+  }
+
 
 }

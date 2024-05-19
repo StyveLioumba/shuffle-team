@@ -34,6 +34,7 @@ export class ListTeamComponent {
   protected players$ = this.playerService.getPlayersData();
 
   protected readonly Object = Object;
+  protected onGenerateTeamManually = false;
 
   onGenerateTeam(players: Player[]) {
     this.teamService.teamsData = this.teamService.shuffleTeam(players);

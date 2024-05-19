@@ -1,0 +1,73 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="manTeamForm" class="ml-2 space-y-2 flex flex-col mb-6">
+
+  <div class="flex flex-wrap sm:space-x-4 space-x-2 ">
+
+    <div class="border border-black surface-border border-round rounded-md min-h-[200px]" pDroppable (onDrop)="drop()">
+      <p class="text-center border surface-border border-bottom-1">Draft du {{ currentDate() | date:"d MMMM yyy" }} <small>({{availablePlayers().length}})</small></p>
+      <div class="min-w-[280px] grid grid-cols-2 gap-4 md:grid-cols-4 p-4 ">
+
+        @for (playerItem of availablePlayers(); track playerItem.name) {
+
+          <div pDraggable (onDragStart)="dragStart(playerItem)" (onDragEnd)="dragEnd()"
+               class="w-min h-min cursor-pointer flex flex-col border border-b shadow-sm rounded-md items-center px-6 py-4 font-normal text-gray-900">
+            <div class="relative h-10 w-10">
+              <img class="h-full w-full rounded-full object-cover object-center" src="{{playerItem.picture}}"
+                   alt="{{playerItem.name}}"/>
+            </div>
+            <div class="text-sm">
+              <div class="font-normal text-sm text-gray-700">{{ playerItem.name.toUpperCase() }}</div>
+            </div>
+          </div>
+
+        } @empty {
+          <div class="text-center text-gray-500">No players available</div>
+        }
+
+      </div>
+    </div>
+
+    <div class="sm:p-0 p-4 sm:m-0 m-2 border-1 border border-black rounded-md surface-border border-round min-h-[200px]" pDroppable (onDrop)="drop()">
+      <p class="text-center border surface-border border-bottom-1">Joueur(se) selectionné(e) <small>({{selectedPlayers.length}})</small></p>
+      @if (selectedPlayers) {
+
+        <div class="min-w-[280px] grid grid-cols-2 gap-4 sm:grid-cols-3 p-4">
+
+          @for (playerItem of selectedPlayers; track playerItem) {
+
+            <div pDraggable (onDragStart)="dragStart(playerItem)" (onDragEnd)="dragEnd()"
+                 class="w-min cursor-pointer flex flex-col border border-b shadow-sm rounded-md items-center px-6 py-4 font-normal text-gray-900">
+              <div class="relative h-10 w-10">
+                <img class="h-full w-full rounded-full object-cover object-center" src="{{playerItem.picture}}"
+                     alt="{{playerItem.name}}"/>
+              </div>
+              <div class="text-sm">
+                <div class="font-normal text-sm text-gray-700">{{ playerItem.name.toUpperCase() }}</div>
+              </div>
+            </div>
+          } @empty {
+            <div class="text-center text-gray-500">No players selected</div>
+          }
+
+
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="flex-wrap flex space-x-2  items-center">
+
+    <div class="w-max">
+      <div class="">
+        <input type="text" formControlName="name" placeholder="Team name" name="first-name" id="first-name"
+               autocomplete="given-name"
+               class="px-4 py-2 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+      </div>
+    </div>
+
+    <button type="submit"
+            class="w-min bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none"> Ajouter
+    </button>
+  </div>
+
+</form>
+

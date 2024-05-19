@@ -1,26 +1,13 @@
 @if (players$| async; as players) {
   <button type="button" (click)="onGenerateTeam(players)"
-          class="bg-indigo-500 text-white px-2 py-1 rounded-lg hover:bg-indigo-600 focus:outline-none">Reconstituer les
-    équipes
+          class="bg-indigo-500 text-white px-2 py-1 mb-4 rounded-lg hover:bg-indigo-600 focus:outline-none">Reconstituer les
+    équipes automatiquement
   </button>
 }
 
-@if (teamService.teamsData; as teams) {
+<div class="flex-wrap flex w-full">
+  <app-auto-team/>
+  <app-man-team/>
+</div>
 
-  @if (Object.keys(teams).length > 0) {
-    <h2 class="font-bold text-2xl uppercase my-2">Les équipes formées </h2>
-  }
 
-  <div class="flex flex-wrap space-x-2 pb-9 ">
-
-    @if (Object.keys(teams); as keys) {
-
-      <div class="w-min flex flex-wrap justify-between">
-        @for (keyItem of keys; track keyItem) {
-          <app-team-item [players]="teams[keyItem]" [teamName]="keyItem"></app-team-item>
-        }
-      </div>
-    }
-  </div>
-
-}

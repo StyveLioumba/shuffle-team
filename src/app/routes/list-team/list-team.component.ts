@@ -7,6 +7,8 @@ import {Player} from "@app/models/player/player";
 import {TeamChartComponent} from "@app/shared/components/team-chart/team-chart.component";
 import {StadiumComponent} from "@app/shared/components/stadium/stadium.component";
 import {ToastModule} from "primeng/toast";
+import {AutoTeamComponent} from "@app/shared/components/auto-team/auto-team.component";
+import {ManTeamComponent} from "@app/shared/components/man-team/man-team.component";
 
 @Component({
   selector: 'app-list-team',
@@ -17,7 +19,9 @@ import {ToastModule} from "primeng/toast";
     TeamItemComponent,
     TeamChartComponent,
     StadiumComponent,
-    ToastModule
+    ToastModule,
+    AutoTeamComponent,
+    ManTeamComponent
   ],
   templateUrl: './list-team.component.html',
   styleUrl: './list-team.component.scss'

@@ -1,6 +1,24 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="manTeamForm" class="ml-2 space-y-2 flex flex-col mb-6">
 
-  <div class="flex flex-wrap sm:space-x-4 space-x-2 ">
+<form (ngSubmit)="onSubmit()" [formGroup]="manTeamForm" class="space-y-2 flex flex-col mb-6 justify-center items-center">
+
+  <h2 class="font-bold text-2xl uppercase my-2 text-center sm:text-left w-full">Les joueur(se)s selectionné(e)s </h2>
+
+  <div class="flex-wrap justify-center space-y-2 sm:space-y-0 flex space-x-2  items-center w-full sm:justify-normal ">
+
+    <div class="w-max">
+      <div class="">
+        <input type="text" formControlName="name" placeholder="Team name" name="first-name" id="first-name"
+               autocomplete="given-name"
+               class="px-4 py-2 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+      </div>
+    </div>
+
+    <button type="submit"
+            class="w-min bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none"> Ajouter
+    </button>
+  </div>
+
+  <div class="flex flex-wrap justify-center sm:space-x-4 space-x-2 space-y-2">
 
     <div class="border border-black surface-border border-round rounded-md min-h-[200px]" pDroppable (onDrop)="drop()">
       <p class="text-center border surface-border border-bottom-1">Draft du {{ currentDate() | date:"d MMMM yyy" }} <small>({{availablePlayers().length}})</small></p>
@@ -27,8 +45,8 @@
       </div>
     </div>
 
-    <div class="sm:p-0 p-4 sm:m-0 m-2 border-1 border border-black rounded-md surface-border border-round min-h-[200px]" pDroppable (onDrop)="drop()">
-      <p class="text-center border surface-border border-bottom-1">Joueur(se) selectionné(e) <small>({{selectedPlayers.length}})</small></p>
+    <div class="sm:p-0 p-4 border-1 border border-black rounded-md surface-border border-round min-h-[200px]" pDroppable (onDrop)="drop()">
+      <p class="text-center border surface-border border-bottom-1">Joueur(se)s draft(e)s <small>({{selectedPlayers.length}})</small></p>
       @if (selectedPlayers) {
 
         <div class="min-w-[280px] grid grid-cols-2 gap-4 sm:grid-cols-3 p-4">
@@ -55,22 +73,9 @@
         </div>
       }
     </div>
+
   </div>
 
-  <div class="flex-wrap flex space-x-2  items-center">
-
-    <div class="w-max">
-      <div class="">
-        <input type="text" formControlName="name" placeholder="Team name" name="first-name" id="first-name"
-               autocomplete="given-name"
-               class="px-4 py-2 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-      </div>
-    </div>
-
-    <button type="submit"
-            class="w-min bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none"> Ajouter
-    </button>
-  </div>
 
 </form>
 

@@ -1,21 +1,24 @@
-@if (players$| async; as players) {
-  <div class="flex flex-wrap space-x-2 justify-items-center ">
+<section class="w-full flex flex-col justify-center items-center mb-6">
+  @if (players$| async; as players) {
+    <div class="w-full flex flex-wrap space-x-2 justify-center sm:justify-normal ">
+      <button type="button" (click)="onGenerateTeam(players)"
+              class="text-sm  w-max uppercase bg-blue-500 text-white px-2 py-3 mb-4 rounded-lg hover:bg-blue-600 focus:outline-none">
+        équipe automatique
+      </button>
 
-    <button type="button" (click)="onGenerateTeam(players)"
-            class="bg-blue-500 text-white px-2 py-1 mb-4 rounded-lg hover:bg-blue-600 focus:outline-none">Reconstituer les
-      équipes automatiquement
-    </button>
+      <button type="button" (click)="onGenerateTeamManually=true"
+              class=" text-sm w-max uppercase bg-blue-500 text-white px-2 py-3 mb-4 rounded-lg hover:bg-blue-600 focus:outline-none">
+        équipe manuelle
+      </button>
+    </div>
+  }
 
-    <button type="button" (click)="onGenerateTeamManually=true"
-            class="bg-blue-500 text-white px-2 py-1 mb-4 rounded-lg hover:bg-blue-600 focus:outline-none">Reconstituer les
-      équipes manuellement
-    </button>
+  <div class="flex-wrap flex w-full mb-6 px-4">
+    <app-auto-team/>
+    <span class="w-min mx-2"></span>
+    <app-man-team [reset]="onGenerateTeamManually"/>
   </div>
-}
+</section>
 
-<div class="flex-wrap flex w-full mb-6">
-  <app-auto-team/>
-  <app-man-team [reset]="onGenerateTeamManually"/>
-</div>
 
 

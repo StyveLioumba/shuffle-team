@@ -1,8 +1,8 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="playerForm" class="flex flex-row space-x-2">
-  <div class="w-full">
-    <div class="mt-2">
+<form (ngSubmit)="onSubmit()" [formGroup]="playerForm" class="flex flex-row justify-center items-center sm:justify-normal space-x-2 ">
+  <div class="w-max sm:w-full">
+    <div class="">
       <input type="text" formControlName="name" placeholder="Player name" name="first-name" id="first-name" autocomplete="given-name" class="px-4 py-2 block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
     </div>
   </div>
-  <button class="bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none"><i class="pi pi-plus font-bold"></i></button>
+  <button type="submit" class="w-min bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none"><i class="pi pi-plus text-sm font-bold"></i></button>
 </form>

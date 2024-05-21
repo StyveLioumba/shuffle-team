@@ -1,12 +1,13 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {OrganizationChartModule} from "primeng/organizationchart";
 import {TreeNode} from "primeng/api";
+import {StadiumComponent} from "@app/shared/components/stadium/stadium.component";
 
 export interface Child {
   label: string;
 }
 
-export interface Parent {
+export interface Parent extends TreeNode {
   label: string;
   expanded: boolean;
   children?: Child[];
@@ -16,7 +17,8 @@ export interface Parent {
   selector: 'app-team-chart',
   standalone: true,
   imports: [
-    OrganizationChartModule
+    OrganizationChartModule,
+    StadiumComponent
   ],
   templateUrl: './team-chart.component.html',
   styleUrl: './team-chart.component.scss'
@@ -71,6 +73,7 @@ export class TeamChartComponent implements OnInit, OnChanges {
       parents.push({
         label: `MATCH ${i + 1}`,
         expanded: true,
+        styleClass: 'text-sm',
         children: []
       })
     }

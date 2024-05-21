@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --configuration=production --output-path=/ --base-href=https://styvelioumba.github.io/shuffle-team/",
+    "build:prod": "ng build --configuration=production --output-path=browser/ --base-href=https://styvelioumba.github.io/shuffle-team/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:basket-loisir": "node dist/basket-loisir/server/server.mjs"

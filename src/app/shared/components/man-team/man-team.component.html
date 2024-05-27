@@ -1,5 +1,5 @@
-
-<form (ngSubmit)="onSubmit()" [formGroup]="manTeamForm" class="space-y-2 flex flex-col mb-6 justify-center items-center">
+<form (ngSubmit)="onSubmit()" [formGroup]="manTeamForm"
+      class="space-y-2 flex flex-col mb-6 justify-center items-center">
 
   <h2 class="font-bold text-2xl uppercase my-2 text-center sm:text-left w-full">Les joueur(se)s selectionné(e)s </h2>
 
@@ -14,27 +14,27 @@
     </div>
 
     <button type="submit"
-            class="w-min bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none"> Ajouter
+            class="w-min bg-blue-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none">
+      Ajouter
     </button>
   </div>
 
   <div class="flex flex-wrap justify-center sm:space-x-4 space-x-2 space-y-2">
 
     <div class="border border-black surface-border border-round rounded-md min-h-[200px]" pDroppable (onDrop)="drop()">
-      <p class="text-center border surface-border border-bottom-1">Draft du {{ currentDate() | date:"d MMMM yyy" }} <small>({{availablePlayers().length}})</small></p>
+      <p class="text-center border surface-border border-bottom-1">Draft du {{ currentDate() | date:"d MMMM yyy" }}
+        <small>({{ availablePlayers().length }})</small></p>
       <div class="min-w-[280px] grid grid-cols-2 gap-4 md:grid-cols-4 p-4 ">
 
         @for (playerItem of availablePlayers(); track playerItem.name) {
 
           <div (click)="onSelect(playerItem)" pDraggable (onDragStart)="dragStart(playerItem)" (onDragEnd)="dragEnd()"
-               class="w-min h-min cursor-pointer flex flex-col border border-b shadow-sm rounded-md items-center px-6 py-4 font-normal text-gray-900">
+               class="w-min min-w-[130px] h-min cursor-pointer flex flex-col border border-b shadow-sm rounded-md items-center px-6 py-4 font-normal text-gray-900">
             <div class="relative h-10 w-10">
-              <img class="h-full w-full rounded-full object-cover object-center" src="{{playerItem.picture}}"
-                   alt="{{playerItem.name}}"/>
+              <img class="h-full w-full rounded-full object-cover object-center" ngSrc="{{playerItem.picture}}"
+                   alt="{{playerItem.name}}" fill/>
             </div>
-            <div class="text-sm">
-              <div class="font-normal text-sm text-gray-700 text-center">{{ playerItem.name.toUpperCase() }}</div>
-            </div>
+            <small class="font-normal text-sm text-gray-700 text-center">{{ playerItem.name.toUpperCase() }}</small>
             <i class="pi pi-fw pi-plus-circle text-green-500 font-bold cursor-pointer"></i>
           </div>
 
@@ -45,23 +45,24 @@
       </div>
     </div>
 
-    <div class="sm:p-0 p-4 border-1 border border-black rounded-md surface-border border-round min-h-[200px]" pDroppable (onDrop)="drop()">
-      <p class="text-center border surface-border border-bottom-1">Joueur(se)s draft(e)s <small>({{selectedPlayers.length}})</small></p>
+    <div class="sm:p-0 p-4 border-1 border border-black rounded-md surface-border border-round min-h-[200px]" pDroppable
+         (onDrop)="drop()">
+      <p class="text-center border surface-border border-bottom-1">Joueur(se)s draft(e)s
+        <small>({{ selectedPlayers.length }})</small></p>
       @if (selectedPlayers) {
 
         <div class="min-w-[280px] grid grid-cols-2 gap-4 sm:grid-cols-3 p-4">
 
           @for (playerItem of selectedPlayers; track playerItem) {
 
-            <div  (click)="onSelect(playerItem)" pDraggable (onDragStart)="dragStart(playerItem)" (onDragEnd)="dragEnd()"
-                 class="w-min cursor-pointer flex flex-col border border-b shadow-sm rounded-md items-center px-6 py-4 font-normal text-gray-900">
+            <div (click)="onSelect(playerItem)" pDraggable (onDragStart)="dragStart(playerItem)" (onDragEnd)="dragEnd()"
+                 class="w-min min-w-[130px] h-min cursor-pointer flex flex-col border border-b shadow-sm rounded-md items-center px-6 py-4 font-normal text-gray-900">
               <div class="relative h-10 w-10">
-                <img class="h-full w-full rounded-full object-cover object-center" src="{{playerItem.picture}}"
-                     alt="{{playerItem.name}}"/>
+                <img class="h-full w-full rounded-full object-cover object-center"
+                     ngSrc="{{ MethodeUtil.transformPictureUrl(playerItem) }}"
+                     alt="{{playerItem.name}}" fill/>
               </div>
-              <div class="text-sm">
-                <div class="font-normal text-sm text-gray-700 text-center">{{ playerItem.name.toUpperCase() }}</div>
-              </div>
+              <small class="font-normal text-sm text-gray-700 text-center">{{ playerItem.name.toUpperCase() }}</small>
 
               <i class="pi pi-fw pi-minus-circle text-red-500 font-bold cursor-pointer"></i>
             </div>

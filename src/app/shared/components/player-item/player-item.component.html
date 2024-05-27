@@ -1,20 +1,21 @@
-<section class="flex flex-col justify-around items-center border border-b shadow-sm rounded-md w-min">
-  <div class="flex justify-end gap-4 px-6 py-4">
+<section class="flex flex-col justify-around items-center border border-b shadow-sm rounded-md w-min min-w-[150px] my-1 sm:my-0">
+  <div class="flex justify-end px-6 py-4">
     <i class="pi pi-fw pi-trash text-red-800 cursor-pointer" (click)="onDelete(player)"></i>
   </div>
 
-  <div class="flex flex-col gap-3 items-center px-6 py-4 font-normal text-gray-900">
+  <div class="flex flex-col items-center px-6 py-4 space-y-1.5 font-normal text-gray-900">
     <div class="relative h-20 w-20">
-      <img class="h-full w-full rounded-full object-cover object-center" src="{{player.picture}}"
-           alt="{{player.name}}"/>
+      <img class="h-full w-full rounded-full object-cover object-center" ngSrc="{{player$().picture}}"
+           alt="{{player$().name}}" fill/>
     </div>
     <div class="text-sm">
-      <div class="font-medium text-gray-700">{{ player.name.toUpperCase() }}</div>
+      <div class="font-medium text-gray-700">{{ player$().name.toUpperCase() }}</div>
     </div>
+    <p-rating [stars]="5" [(ngModel)]="player.level" [readonly]="true" [cancel]="false" />
   </div>
 
-  @if (player.post) {
-    <span class="px-6 py-4">{{ player.post }}</span>
+  @if (player$().post) {
+    <small class="px-6 py-4 text-center font-normal">{{ player$().post }}</small>
   }
 
 </section>

@@ -31,7 +31,7 @@ export class ListTeamComponent {
   protected readonly playerService = inject(PlayerService);
   protected readonly teamService = inject(TeamService);
 
-  protected players$ = this.playerService.getPlayersData();
+  protected players$ = this.playerService.players;
 
   protected readonly Object = Object;
   protected onGenerateTeamManually = false;

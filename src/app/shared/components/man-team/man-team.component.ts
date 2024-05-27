@@ -1,11 +1,12 @@
 import {Component, computed, inject, Input, OnChanges, OnDestroy, signal, SimpleChanges} from '@angular/core';
 import {PlayerService} from "@app/services/player/player.service";
 import {TeamService} from "@app/services/team/team.service";
-import {AsyncPipe, DatePipe} from "@angular/common";
+import {AsyncPipe, DatePipe, NgOptimizedImage} from "@angular/common";
 import {DragDropModule} from "primeng/dragdrop";
 import {Player} from "@app/models/player/player";
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Team} from "@app/models/team/team";
+import {MethodeUtil} from "@app/shared/utils/methods.utils";
 
 @Component({
   selector: 'app-man-team',
@@ -15,7 +16,8 @@ import {Team} from "@app/models/team/team";
     DragDropModule,
     FormsModule,
     ReactiveFormsModule,
-    DatePipe
+    DatePipe,
+    NgOptimizedImage
   ],
   templateUrl: './man-team.component.html',
   styleUrl: './man-team.component.scss'
@@ -24,11 +26,12 @@ export class ManTeamComponent implements OnChanges, OnDestroy{
 
   @Input({required: true}) reset: boolean = false;
 
+  protected readonly MethodeUtil = MethodeUtil;
   protected readonly fb = inject(FormBuilder);
   protected readonly playerService = inject(PlayerService);
   protected readonly teamService = inject(TeamService);
 
-  protected players$ = this.playerService.getPlayersData();
+  protected players$ = this.playerService.players;
 
   availablePlayers = signal(this.players$.value)
 
@@ -59,7 +62,7 @@ export class ManTeamComponent implements OnChanges, OnDestroy{
     if (!this.teams[team.name]) {
       this.teams[team.name] = team.players;
       this.selectedPlayers = [];
-      this.availablePlayers().filter(player => !team.players.includes(player));
+      this.availablePlayers().filter((player:Player) => !team.players.includes(player));
     }
     this.teamService.teamsData = this.teams;
     this.manTeamForm.reset();
@@ -70,7 +73,7 @@ export class ManTeamComponent implements OnChanges, OnDestroy{
     const existingPlayer = this.selectedPlayers.find(p => p.name === player.name);
     if (!existingPlayer) {
       this.selectedPlayers = [...this.selectedPlayers, player];
-      this.availablePlayers.set(this.availablePlayers().filter(p => p !== player));
+      this.availablePlayers.set(this.availablePlayers().filter((p:Player) => p !== player));
       return;
     }
     this.availablePlayers.set([...this.availablePlayers(), existingPlayer]);
@@ -96,7 +99,7 @@ export class ManTeamComponent implements OnChanges, OnDestroy{
       }
 
       this.selectedPlayers = [...(this.selectedPlayers as Player[]), this.draggedPlayer];
-      this.availablePlayers.set(this.availablePlayers().filter((val, i) => i != draggedPlayerIndex));
+      this.availablePlayers.set(this.availablePlayers().filter((val: Player, i:number) => i != draggedPlayerIndex));
       this.draggedPlayer = null;
     }
   }
@@ -126,6 +129,4 @@ export class ManTeamComponent implements OnChanges, OnDestroy{
   ngOnDestroy(): void {
 
   }
-
-
 }

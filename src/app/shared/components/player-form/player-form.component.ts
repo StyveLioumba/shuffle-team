@@ -30,7 +30,8 @@ export class PlayerFormComponent implements OnDestroy{
       uuid: '1000',
       name: this.playerForm.value.name!.toLowerCase(),
       picture: `https://api.dicebear.com/8.x/adventurer/svg?seed=${this.playerForm.value.name!}`,
-      post: ''
+      post: '',
+      level: 0
     }
     this.playerService.addPlayer(player);
     this.playerForm.setValue({name: ''});

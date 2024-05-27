@@ -1,5 +1,6 @@
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
+import {Player} from "@app/models/player/player";
 
 export class MethodeUtil {
 
@@ -44,6 +45,13 @@ export class MethodeUtil {
 
     return ref;
 
+  }
+
+
+  public static transformPictureUrl(player:Player){
+    const url = new URL(player.picture);
+    const id = url.searchParams.get('id');
+    return `https://drive.google.com/thumbnail?id=${id}&sz=w800`
   }
 }
 

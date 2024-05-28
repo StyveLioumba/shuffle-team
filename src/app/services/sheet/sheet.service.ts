@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import * as XLSX from 'xlsx';
 import {Player} from "@app/models/player/player";
 import {PlayerService} from '../player/player.service';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 type AOA = Array<Player>;
 
@@ -11,10 +12,17 @@ type AOA = Array<Player>;
 export class SheetService {
 
   private readonly playerService = inject(PlayerService);
+  private readonly localStorageService = inject(LocalStorageService);
   private readonly fileName: string = `Shuffle-team-${new Date()}.xlsx`;
+  private readonly LOCAL_STORAGE_KEY: string = 'players';
 
+  constructor() {
+    let players = this.localStorageService.getItem(this.LOCAL_STORAGE_KEY);
+    if (players) {
+      this.playerService.players.next(players);
+    }
+  }
 
-  // wopts: XLSX.WritingOptions = {bookType: 'xlsx', type: 'array'};
 
   readXlsxData(evt: any) {
     /* wire up file reader */
@@ -34,7 +42,9 @@ export class SheetService {
       // let sheetToJson = <AOA>(XLSX.utils.sheet_to_json(ws, {header: 1}));
       let sheetToJson = <AOA>(XLSX.utils.sheet_to_json(ws, {raw: true}));
       this.playerService.players.next(sheetToJson);
-      console.log(this.playerService.players.value);
+
+      this.localStorageService.removeItem(this.LOCAL_STORAGE_KEY)
+      this.localStorageService.setItem(this.LOCAL_STORAGE_KEY, sheetToJson);
     };
     reader.readAsBinaryString(target.files[0]);
   }

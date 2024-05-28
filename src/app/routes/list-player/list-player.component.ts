@@ -13,7 +13,6 @@ import {AsyncPipe, JsonPipe, NgIf} from "@angular/common";
 import {PlayerFormComponent} from "@app/shared/components/player-form/player-form.component";
 import {PlayerItemComponent} from "@app/shared/components/player-item/player-item.component";
 import {SheetXlsxInputComponent} from "@app/shared/components/sheet-xlsx-input/sheet-xlsx-input.component";
-import {SheetService} from "@app/services/sheet/sheet.service";
 
 @Component({
   selector: 'app-list-player',
@@ -40,8 +39,6 @@ import {SheetService} from "@app/services/sheet/sheet.service";
 })
 export class ListPlayerComponent {
   protected readonly playerService = inject(PlayerService)
-  protected readonly sheetService = inject(SheetService);
   players$ = this.playerService.players;
-
 
 }

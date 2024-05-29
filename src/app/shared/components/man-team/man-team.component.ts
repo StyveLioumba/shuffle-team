@@ -1,7 +1,7 @@
 import {Component, computed, inject, Input, OnChanges, OnDestroy, signal, SimpleChanges} from '@angular/core';
 import {PlayerService} from "@app/services/player/player.service";
 import {TeamService} from "@app/services/team/team.service";
-import {AsyncPipe, DatePipe, NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, DatePipe, JsonPipe, NgClass, NgOptimizedImage} from "@angular/common";
 import {DragDropModule} from "primeng/dragdrop";
 import {Player} from "@app/models/player/player";
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
@@ -17,7 +17,9 @@ import {MethodeUtil} from "@app/shared/utils/methods.utils";
     FormsModule,
     ReactiveFormsModule,
     DatePipe,
-    NgOptimizedImage
+    NgOptimizedImage,
+    NgClass,
+    JsonPipe
   ],
   templateUrl: './man-team.component.html',
   styleUrl: './man-team.component.scss'
@@ -30,12 +32,17 @@ export class ManTeamComponent implements OnChanges, OnDestroy{
   protected readonly fb = inject(FormBuilder);
   protected readonly playerService = inject(PlayerService);
   protected readonly teamService = inject(TeamService);
+  protected readonly Object = Object;
 
   protected players$ = this.playerService.players;
 
   availablePlayers = signal(this.players$.value)
 
+  availablePlayersCount=this.availablePlayers().length;
+
   currentDate = computed(() => new Date());
+
+  protected onSubmitted = signal(false);
 
   selectedPlayers: Player[] = []
 
@@ -50,6 +57,7 @@ export class ManTeamComponent implements OnChanges, OnDestroy{
 
   onSubmit() {
     if (this.manTeamForm.invalid) {
+      this.onSubmitted.set(true);
       return;
     }
 
@@ -127,6 +135,15 @@ export class ManTeamComponent implements OnChanges, OnDestroy{
   }
 
   ngOnDestroy(): void {
-
   }
+
+  onResetAll() {
+    this.availablePlayers.set(this.players$.value);
+    this.teamService.teamsData = {};
+  }
+
+  get name() {
+    return this.manTeamForm.get('name')!;
+  }
+
 }

@@ -16,14 +16,6 @@ export class SheetService {
   private readonly fileName: string = `Shuffle-team-${new Date()}.xlsx`;
   private readonly LOCAL_STORAGE_KEY: string = 'players';
 
-  constructor() {
-    let players = this.localStorageService.getItem(this.LOCAL_STORAGE_KEY);
-    if (players) {
-      this.playerService.players.next(players);
-    }
-  }
-
-
   readXlsxData(evt: any) {
     /* wire up file reader */
     const target: DataTransfer = <DataTransfer>(evt.target);

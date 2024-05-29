@@ -48,11 +48,54 @@ export class MethodeUtil {
   }
 
 
-  public static transformPictureUrl(player:Player){
+  public static transformPictureUrl(player: Player) {
+    if (!player.picture) player.picture = 'https://drive.google.com/file/d/1ZgJhimQEfP9x8fhzg7OGELChrrpbgi3s/view?usp=sharing'
+
     const url = new URL(player.picture);
-    const id = url.searchParams.get('id');
+    let id = url.searchParams.get('id');
+
+    if (id === null) {
+      const segments = player.picture.split('/');
+      id = segments[5];
+    }
     return `https://drive.google.com/thumbnail?id=${id}&sz=w800`
   }
+
+  public static avgTeam(players: Player[]) {
+    let totalLevel = players.reduce((acc, player) => acc + player.level, 0);
+    let avg = totalLevel / players.length;
+    return parseFloat(avg.toFixed(1))??0;
+  }
+
+
+  /*shuffledPlayers.map((value, index) => {
+
+    let meneurExist =  teamArray.find((player) => player.post.toLowerCase() === Post.Meneur.toLowerCase());
+    let pivotExist =  teamArray.find((player) => player.post.toLowerCase() === Post.Pivot.toLowerCase());
+    let ailierExist =  teamArray.find((player) => player.post.toLowerCase() === Post.Ailier.toLowerCase());
+    let ailierFortExist =  teamArray.find((player) => player.post.toLowerCase() === Post.AlierFort.toLowerCase());
+    let arriereExist =  teamArray.find((player) => player.post.toLowerCase() === Post.Arriere.toLowerCase());
+
+    if (!meneurExist && value.post.toLowerCase() === Post.Meneur.toLowerCase()) {
+      teamArray.push(value);
+    } else if (!pivotExist && value.post.toLowerCase() === Post.Pivot.toLowerCase()) {
+      teamArray.push(value);
+    } else if (!ailierExist && value.post.toLowerCase() === Post.Ailier.toLowerCase()) {
+      teamArray.push(value);
+    } else if (!ailierFortExist && value.post.toLowerCase() === Post.AlierFort.toLowerCase()) {
+      teamArray.push(value);
+    } else if (!arriereExist && value.post.toLowerCase() === Post.Arriere.toLowerCase()) {
+      teamArray.push(value);
+    } else {
+      teamArray.push(value);
+    }
+
+
+    if (teamArray.length === minEquipe) {
+      teamsObject[`team${Math.floor(index / minEquipe) + 1}`] = teamArray;
+      teamArray = [];
+    }
+  });*/
 }
 
 

@@ -1,11 +1,15 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Team} from "@app/models/team/team";
 import {Player} from "@app/models/player/player";
+import {NgOptimizedImage} from "@angular/common";
+import {MethodeUtil} from "@app/shared/utils/methods.utils";
 
 @Component({
   selector: 'app-team-item',
   standalone: true,
-  imports: [],
+  imports: [
+    NgOptimizedImage
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './team-item.component.html',
   styleUrl: './team-item.component.scss'
@@ -20,6 +24,9 @@ export class TeamItemComponent implements OnInit, OnDestroy,OnChanges {
   ngOnInit(): void {
     this.team.name = this.teamName;
     this.team.players = this.players;
+    this.team.count = this.players.length;
+    this.team.avg = MethodeUtil.avgTeam(this.players);
+
   }
 
   ngOnDestroy(): void {
@@ -29,6 +36,11 @@ export class TeamItemComponent implements OnInit, OnDestroy,OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.team.name = this.teamName;
     this.team.players = this.players;
+    this.team.count = this.players.length;
+    this.team.avg = MethodeUtil.avgTeam(this.players);
   }
+
+  protected readonly MethodeUtil = MethodeUtil;
+
 
 }

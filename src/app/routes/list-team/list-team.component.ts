@@ -38,5 +38,6 @@ export class ListTeamComponent {
 
   onGenerateTeam(players: Player[]) {
     this.teamService.teamsData = this.teamService.shuffleTeam(players);
+    this.onGenerateTeamManually = false;
   }
 }

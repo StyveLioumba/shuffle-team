@@ -8,7 +8,7 @@
 
     @if (Object.keys(teams); as keys) {
 
-      <div class="w-min flex flex-wrap justify-between">
+      <div class="w-min flex flex-col justify-between">
         @for (keyItem of keys; track keyItem) {
           <app-team-item [players]="teams[keyItem]" [teamName]="keyItem"></app-team-item>
         }

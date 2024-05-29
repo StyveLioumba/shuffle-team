@@ -64,7 +64,8 @@ export class MethodeUtil {
   public static avgTeam(players: Player[]) {
     let totalLevel = players.reduce((acc, player) => acc + player.level, 0);
     let avg = totalLevel / players.length;
-    return parseFloat(avg.toFixed(1))??0;
+    if (isNaN(avg)) return 0;
+    return parseFloat(avg.toFixed(1));
   }
 
 

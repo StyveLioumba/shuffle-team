@@ -102,7 +102,7 @@ export class TeamChartComponent implements OnInit, OnChanges {
   }
 
   private get teamWithoutSubstitute() {
-    const {substitute, ...teamWithoutSubstitute} = this.team;
+    const {unselected, ...teamWithoutSubstitute} = this.team;
     return teamWithoutSubstitute;
   }
 }

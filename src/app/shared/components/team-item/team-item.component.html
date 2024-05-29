@@ -8,6 +8,8 @@
       @if (team.name.toLowerCase() !== 'unselected'.toLowerCase()){
         <small> <i class="pi pi-fw pi-star-fill text-yellow-500 font-bold"></i> ({{team.avg}})</small>
       }
+
+      <!--<small> <i class="pi pi-fw pi-trash text-red-500 font-bold cursor-pointer" (click)="onRemoveTeam(team)"></i> </small>-->
     </div>
   }
 
